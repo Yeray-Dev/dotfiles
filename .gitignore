@@ -1,0 +1,16 @@
+# Específico de máquina
+**/.luarc.json
+*.bak
+*.bak-*
+
+# Secretos: nunca, aunque no los copies a mano
+**/gh/hosts.yml
+**/.npmrc
+**/.env
+**/*token*
+**/*credential*
+
+# Ruido
+.DS_Store
+*.log
+alacritty/.config/alacritty/theme.toml
