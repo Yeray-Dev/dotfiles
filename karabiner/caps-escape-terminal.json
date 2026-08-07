@@ -1,0 +1,24 @@
+{
+  "title": "Caps Lock a Escape en la terminal",
+  "rules": [
+    {
+      "description": "Caps Lock -> Escape solo en Alacritty",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": { "optional": ["any"] }
+          },
+          "to": [{ "key_code": "escape" }],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": ["^org\\.alacritty$"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

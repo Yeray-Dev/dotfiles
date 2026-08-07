@@ -13,7 +13,7 @@ PACKAGES := nvim alacritty starship git shell
 export DOTFILES
 
 .DEFAULT_GOAL := help
-.PHONY: help all deps ssh check backup-omarchy $(PACKAGES)
+.PHONY: help all deps ssh check backup-omarchy karabiner $(PACKAGES)
 
 help:
 	@printf '\n\033[1mDotfiles\033[0m — Omarchy / macOS / Debian\n\n'
@@ -51,3 +51,6 @@ check:
 
 backup-omarchy:
 	@$(S)/backup-omarchy.sh
+
+karabiner:
+	@$(S)/karabiner.sh
