@@ -14,3 +14,4 @@
 .DS_Store
 *.log
 alacritty/.config/alacritty/theme.toml
+alacritty/.config/alacritty/local.toml

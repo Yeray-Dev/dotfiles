@@ -7,7 +7,10 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 pkg="${1:?Uso: post.sh <paquete>}"
 
 post_nvim() {
-  have nvim || { warn "nvim no disponible, me salto la instalación de plugins"; return 0; }
+  have nvim || {
+    warn "nvim no disponible, me salto la instalación de plugins"
+    return 0
+  }
   info "Instalando plugins según lazy-lock.json"
   # 'restore' respeta el lockfile; 'sync' actualizaría y rompería la reproducibilidad.
   nvim --headless "+Lazy! restore" +qa
@@ -17,6 +20,14 @@ post_nvim() {
 post_alacritty() {
   local theme="$HOME/.config/alacritty/theme.toml"
 
+  # local.toml: ajustes por máquina (tamaño de fuente, decoraciones).
+  local local_file="$HOME/.config/alacritty/local.toml"
+  if [ ! -e "$local_file" ]; then
+    local src="linux"
+    [ "$(detect_os)" = macos ] && src="macos"
+    cp "$DOTFILES/alacritty/.config/alacritty/locals/$src.toml" "$local_file"
+    info "local.toml creado desde locals/$src.toml"
+  fi
   if is_omarchy; then
     # theme.toml apunta al tema activo de Omarchy: permite el cambio en caliente.
     ln -sf "$HOME/.config/omarchy/current/theme/alacritty.toml" "$theme"
@@ -39,15 +50,15 @@ post_shell() {
       continue
     fi
     # No versionamos .bashrc (lo gestiona Omarchy): solo le añadimos el enganche.
-    printf '\n# dotfiles\n%s\n' "$line" >> "$rc"
+    printf '\n# dotfiles\n%s\n' "$line" >>"$rc"
     info "Enganche añadido a $(basename "$rc")"
   done
 }
 
 post_starship() { :; }
-post_git()      { :; }
+post_git() { :; }
 
 case "$pkg" in
-  nvim|alacritty|starship|git|shell) "post_$pkg" ;;
-  *) die "Paquete desconocido: $pkg" ;;
+nvim | alacritty | starship | git | shell) "post_$pkg" ;;
+*) die "Paquete desconocido: $pkg" ;;
 esac
