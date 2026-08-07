@@ -47,6 +47,19 @@ pm_install() {
   esac
 }
 
+cask_install() {
+  local cask="$1" app="${2:-}"
+  [ "$OS" = macos ] || return 0
+  brew list --cask "$cask" >/dev/null 2>&1 && return 0
+
+  if [ -n "$app" ] && [ -d "/Applications/$app" ]; then
+    info "$app ya está instalada; adoptándola en brew"
+    brew install --cask --adopt "$cask" || warn "No se pudo adoptar $cask"
+  else
+    brew install --cask "$cask"
+  fi
+}
+
 ensure_brew() {
   [ "$OS" = macos ] || return 0
   have brew && return 0
@@ -93,7 +106,7 @@ install_nvim_tarball() {
 install_nerd_font() {
   case "$OS" in
     arch)  pm_install ttf-jetbrains-mono-nerd ;;
-    macos) brew install --cask font-jetbrains-mono-nerd-font ;;
+    macos) cask_install font-jetbrains-mono-nerd-font ;;
     debian)
       local dir="$HOME/.local/share/fonts"
       [ -f "$dir/JetBrainsMonoNerdFont-Regular.ttf" ] && return 0
@@ -116,7 +129,7 @@ deps_base() {
   case "$OS" in
     arch)   pm_install git curl unzip tar stow ;;
     debian) pm_install git curl unzip tar stow ;;
-    macos)  pm_install git curl stow ;;
+    macos)  pm_install stow ;;
   esac
 }
 
@@ -147,7 +160,7 @@ deps_alacritty() {
   case "$OS" in
     arch)   pm_install alacritty ;;
     debian) pm_install alacritty ;;
-    macos)  brew install --cask alacritty ;;
+    macos)  cask_install alacritty "Alacritty.app" ;;
   esac
   install_nerd_font
 }
