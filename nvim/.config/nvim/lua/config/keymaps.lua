@@ -20,3 +20,4 @@ vim.keymap.set("i", "<C-Up>", "<Home>") -- inicio de línea en Insertar
 vim.keymap.set("i", "<C-Down>", "<End>") -- final de línea en Insertar
 
 vim.keymap.set("i", "<C-f>", "<End>")
+vim.keymap.set("n", "<leader><space>", LazyVim.pick("files", { root = false }), { desc = "Find Files (cwd)" })
