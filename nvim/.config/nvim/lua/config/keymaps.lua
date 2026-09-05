@@ -25,3 +25,13 @@ vim.keymap.set("n", "<leader><space>", LazyVim.pick("files", { root = false }), 
 vim.api.nvim_create_user_command("Bd", function(opts)
   vim.cmd("bp | bd" .. (opts.bang and "!" or "") .. " #")
 end, { bang = true, desc = "Cerrar buffer sin cerrar ventana" })
+
+-- visual: pegar sin que la selección sustituida vaya al registro
+vim.keymap.set("x", "p", [["_dP]], { desc = "Pegar sin sobrescribir" })
+
+-- borrados que no ensucian el portapapeles
+vim.keymap.set({ "n", "x" }, "x", [["_x]])
+vim.keymap.set({ "n", "x" }, "c", [["_c]])
+vim.keymap.set("n", "C", [["_C]])
+vim.keymap.set({ "n", "x" }, "s", [["_s]])
+vim.keymap.set("n", "S", [["_S]])
