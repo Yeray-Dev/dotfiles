@@ -21,3 +21,7 @@ vim.keymap.set("i", "<C-Down>", "<End>") -- final de línea en Insertar
 
 vim.keymap.set("i", "<C-f>", "<End>")
 vim.keymap.set("n", "<leader><space>", LazyVim.pick("files", { root = false }), { desc = "Find Files (cwd)" })
+
+vim.api.nvim_create_user_command("Bd", function(opts)
+  vim.cmd("bp | bd" .. (opts.bang and "!" or "") .. " #")
+end, { bang = true, desc = "Cerrar buffer sin cerrar ventana" })
