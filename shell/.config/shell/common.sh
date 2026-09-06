@@ -1,3 +1,4 @@
+# .sh
 # shell/common.sh
 # Configuración compartida entre bash y zsh.
 
