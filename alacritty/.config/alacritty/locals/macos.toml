@@ -5,4 +5,4 @@ size = 14
 
 [window]
 # En macOS "None" quita también los botones de la ventana.
-decorations = "Buttonless"
+decorations = "Full"

@@ -17,7 +17,6 @@ italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
 [window]
 padding.x = 14
 padding.y = 14
-decorations = "None"
 
 [keyboard]
 bindings = [
